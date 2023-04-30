@@ -14,7 +14,7 @@ const scheduleRoutes = require('./routes/scheduleRoutes.js');
 // const degreePreqsRoutes = require('./routes/degreePreqsRoutes.js');
 const sectionsRoutes = require('./routes/sectionsRoutes.js');
 const staffRoutes = require('./routes/staffRoutes.js');
-const studentProfileRoutes = require('./routes/student-profileRoutes.js');
+const studentRoutes = require('./routes/studentRoutes.js');
 const userRoutes = require('./routes/userRoutes.js');
 // MIDDLEWARES
 app.use((req, res, next) => {
@@ -38,21 +38,38 @@ app.use(express.static(`${__dirname}/public`));
 
 
 // Routes
+// app.use('/api/v1/coursepre', coursesPreqs);
+// app.use('/api/v1/degreepreq', degreePreqsRoutes);
+// app.use('/api/v1/schedules',scheduleRoutes );
+// app.use('/E-ACADEMICADVISOR', acadmicadvisorRoutes);
 
-app.use('/api/v1/advisers', adviserRoutes);
+app.use('/api/v1/sections',sectionsRoutes );
 app.use('/api/v1/attendance', AttendanceRoutes);
 app.use('/api/v1/courses', coursesRoutes);
-// app.use('/api/v1/coursepre', coursesPreqs);
 app.use('/api/v1/Dashboard', dashboardRoutes);
-// app.use('/api/v1/degreepreq', degreePreqsRoutes);
 app.use('/api/v1/grades', gradesRoutes);
 app.use('/api/v1/lectures', lecturesRoutes);
-// app.use('/api/v1/schedules',scheduleRoutes );
-app.use('/api/v1/sections',sectionsRoutes );
-app.use('/api/v1/staff', staffRoutes);
-app.use('/api/v1/student-profile', studentProfileRoutes);
 app.use('/api/v1/users', userRoutes);
-// app.use('/E-ACADEMICADVISOR', acadmicadvisorRoutes);
+
+// app.use('/api/v1/staffs', staffRoutes);
+
+// app.use('/api/v1/students', studentRoutes);
+// app.use('/api/v1/advisers', adviserRoutes);
+
+/*
+type of user :  
+student 
+staff (professor (advise []) )
+admin 
+
+*/
+
+// recenctely added 
+// app.use('/api/v1/student-profile', studentProfileRoutes);
+
+
+// recenctely added 
+//
 
 
 

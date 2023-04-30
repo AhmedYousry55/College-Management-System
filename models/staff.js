@@ -3,11 +3,12 @@ const bcrypt = require('bcryptjs');
 const mongoose = require('mongoose');
 
 const staffSchema = new mongoose.Schema({
-  id:{
-    type:Number,
-    required:[true ,' staff member should have an id'],
-    unique:true,
-  },
+  // id:{
+  //   type:Number,
+  //   required:[true ,' staff member should have an id'],
+  //   unique:true,
+  // },
+
     name: {
       type: String,
       required: [true, 'Name is required!!'],
@@ -22,6 +23,12 @@ const staffSchema = new mongoose.Schema({
     office_hours:{
       type:String,
     },
+    // recenctely added  
+    advised_students: [{
+        type: mongoose.Schema.ObjectId,
+        ref: 'Student',
+    }] ,
+    //
     contact_num: Number,
     gender:String,
     role:String,
@@ -29,6 +36,7 @@ const staffSchema = new mongoose.Schema({
       type: String,
       required: true,
       minlength: 8,
+      select:false,
     },
     passwordConfirm: {
       type: String,
@@ -57,6 +65,26 @@ const staffSchema = new mongoose.Schema({
   
     next();
   });
+  
+
+  staffSchema.methods.correctPassword = async function (
+    candidatePassword,
+    userPassword
+  ) {
+    return await bcrypt.compare(candidatePassword, userPassword);
+  };
+  //if This below function returnn false that means that the user hasn't changed their password
+  
+  staffSchema.methods.changedPasswordAfter = function (JWTTimestamp) {
+    if (this.passwordChangedAt) {
+      const changedDate = parseInt(this.passwordChangedAt.getTime() / 1000, 10);
+      console.log(changedDate, JWTTimestamp);
+      return JWTTimestamp < changedDate; // 100 < 200
+    }
+    //False means password is not changed
+    return false;
+  };
+  
   
   const Staff = new mongoose.model('Staff', staffSchema);
   

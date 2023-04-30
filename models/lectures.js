@@ -2,11 +2,11 @@ const mongoose = require('mongoose');
 
 const lectureSchema = new mongoose.Schema({
   
-  lecture_id: {
-    type: Number,
-    unique: true,
-    required: [true, 'section must have an id'],
-  },
+  // lecture_id: {
+  //   type: Number,
+  //   unique: true,
+  //   required: [true, 'section must have an id'],
+  // },
 
   name: {
     type: String,
@@ -15,6 +15,9 @@ const lectureSchema = new mongoose.Schema({
   maxGroupSize :{
     type:Number,
     required:[true ,  ' A lecture must have a limit'],
+    select:false,
+    min:30,
+    max:60,
   },
   professor:{
     type:String,
@@ -24,6 +27,7 @@ const lectureSchema = new mongoose.Schema({
     type: String,
     required: [true, 'lecture must include the hall'],
   },
+  
  time: String,
  
 });

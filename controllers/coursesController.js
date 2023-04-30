@@ -1,4 +1,4 @@
-const Course = require('../models/courses');
+const Course = require('./../models/courses');
 const factory = require('./handlerFactory');
 const APIFeatures = require('../utils/apiFeatures');
 const AppError = require('../utils/appError');

@@ -1,9 +1,8 @@
-const Staff = require('../models/staff');
+const Staff = require('./../models/staff');
 const factory = require('./handlerFactory');
 const APIFeatures = require('../utils/apiFeatures');
 const AppError = require('../utils/appError');
 const catchAsync = require('./../utils/catchAsync');
-
 
 
 exports.getAllStaffs = factory.getAll(Staff);
