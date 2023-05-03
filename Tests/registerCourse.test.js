@@ -87,7 +87,7 @@ describe(
       const anotherStudent = await Student.create({
         name: 'Another Test Student',
         limitCredit: 12,
-        email: 'mohaand@gmail.com',
+        email: 'ahmed@gmail.com',
         password: 'passowrd1234',
         passwordConfirm: 'passowrd1234',
         registeredHours: 0,
