@@ -2,11 +2,6 @@ const mongoose = require('mongoose');
 const validator = require('validator');
 
 const AdviserSchema = new mongoose.Schema({
-    adviser_id:{
-        type:Number,
-        required:[true,'adviser must have an id'],
-        unique:true,
-    },
     name:{
         type:String,
         trim:true,
@@ -21,10 +16,11 @@ const AdviserSchema = new mongoose.Schema({
         validate: [validator.isEmail, 'Please provide a valid email']
       },
 
-      role:{
-        type:String,
+      students:[{
+        type:mongoose.Schema.ObjectId,
+        ref:'Student',
+      }],
 
-      },
 });
 
 const Adviser = new mongoose.model('Adviser',AdviserSchema );

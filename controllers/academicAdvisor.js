@@ -11,7 +11,6 @@ function suggestCourses(completedCourses, degree) {
   });
 }
 
-console.log(req.query);
 
 exports.suggestions = (req, res, next) => {
   const completedCourses = req.query.completedCourses.split(',');

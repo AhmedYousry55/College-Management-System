@@ -21,6 +21,8 @@ mongoose
 
 const port = 5002;
 
-app.listen(5002 || process.env.PORT, () => {
+app.listen( process.env.PORT || 5002 , () => {
   console.log(`app is running on port ${port}`);
 });
+
+module.exports = app ;

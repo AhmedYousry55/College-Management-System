@@ -40,6 +40,11 @@ const gradesSchema = mongoose.Schema({
     type: Number,
     required: [true, 'cgpa is missed'],
   },
+
+  students:[{
+    type:mongoose.Schema.ObjectId,
+    ref:'Student',
+  }]
 });
 
 const Grade = mongoose.model('Grade', gradesSchema);

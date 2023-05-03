@@ -49,6 +49,8 @@ app.use('/api/v1/courses', coursesRoutes);
 app.use('/api/v1/Dashboard', dashboardRoutes);
 app.use('/api/v1/grades', gradesRoutes);
 app.use('/api/v1/lectures', lecturesRoutes);
+
+
 app.use('/api/v1/users', userRoutes);
 
 // app.use('/api/v1/staffs', staffRoutes);

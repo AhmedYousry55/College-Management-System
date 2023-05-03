@@ -27,6 +27,15 @@ const lectureSchema = new mongoose.Schema({
     type: String,
     required: [true, 'lecture must include the hall'],
   },
+  students:[{
+    type:mongoose.Schema.ObjectId,
+    ref:'Student',
+  }],
+  
+  staff:[{
+    type:mongoose.Schema.ObjectId,
+    ref:'Staff',
+  }],
   
  time: String,
  

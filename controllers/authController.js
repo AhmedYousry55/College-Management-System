@@ -22,13 +22,14 @@ const createAndSendToken = (user, statusCode, res) => {
     }
   });
 };
-  
+
 // recentely added 
 exports.signup = catchAsync(async (req, res, next) => {
-  const entityType = req.params.entity; // assuming you pass the entity type as a parameter in the URL
+  const entityType = req.body.entity; // assuming you pass the entity type as a parameter in the URL
   let newUser;
 
   if (entityType === 'student') {
+    
     newUser = await Student.create({
       name: req.body.name,
       email: req.body.email,
@@ -53,14 +54,23 @@ exports.signup = catchAsync(async (req, res, next) => {
   } else {
     return res.status(400).json({ message: 'Invalid entity type' });
   }
+  
+ 
+ const filteredUser = Object.assign( {} , {
+  name: newUser.name,
+  email: newUser.email,
+  // add more fields here as needed
+});
 
-  createAndSendToken(newUser, 201, res)
+
+
+  createAndSendToken(filteredUser, 201, res)
 });
 
 
 exports.login = catchAsync(async (req, res, next) => {
   const { email, password } = req.body;
-  const entityType = req.params.entity; // assuming you pass the entity type as a parameter in the URL
+  const entityType = req.body.entity; // assuming you pass the entity type as a parameter in the URL
 
   //1) check if the user missed his email or password,400 for a bad request
   if (!email || !password) {
@@ -74,14 +84,16 @@ exports.login = catchAsync(async (req, res, next) => {
   if (entityType === 'student') {
     user = await Student.findOne({ email }).select('+password');
     
-  } else if (entityType === 'staff') {
+  } 
+  else if (entityType === 'staff') {
     user = await Staff.findOne({ email }).select('+password');
   } 
-  else if (entityType === 'admin') {
-    user = await Admin.findOne({ email }).select('+password');
-  }
+  // else if (entityType === 'admin') {
+  //   user = await Admin.findOne({ email }).select('+password');
+  // }
    else 
     return next(new AppError('Invalid entity type', 400));
+
   if (entityType === 'student') {
     // add correctPassowrd for student
     if (!user || !(await user.correctPassword(password, user.password))) {
@@ -98,7 +110,7 @@ exports.login = catchAsync(async (req, res, next) => {
     return next(new AppError('Invalid entity type', 400));
   }
 
-
+  
   //3)if everything is okay, send the token to the client
   const token = signToken(user._id);
   res.status(200).json({
@@ -112,8 +124,9 @@ exports.login = catchAsync(async (req, res, next) => {
 exports.protect = catchAsync(async (req, res, next) => {
   //1) getting the token and check if it's there
   let token;
-  const entityType = req.params.entity;
-    
+  const entityType = req.body.entity;
+  
+  
   if (
     req.headers.authorization &&
     req.headers.authorization.startsWith('Bearer')
@@ -137,7 +150,9 @@ exports.protect = catchAsync(async (req, res, next) => {
   let currentUser;
 
   if (entityType === 'student') {
+
     currentUser = await Student.findById(decoded.id);
+
   } else if (entityType === 'staff') {
     currentUser = await Staff.findById(decoded.id);
   }
@@ -157,8 +172,8 @@ exports.protect = catchAsync(async (req, res, next) => {
     );
   }
 
-  //4)check if the user changed password after the token was issued
-
+  //4) check if the user changed password after the token was issued
+  
   if (currentUser.changedPasswordAfter(decoded.iat)) {
     return next(
       new AppError('password has recently changed! please log in again.', 401)
@@ -167,13 +182,14 @@ exports.protect = catchAsync(async (req, res, next) => {
   //Grant access to the protected route
   req.user = currentUser;
   req.user['role'] = entityType ;
+  
   next();
 });
 
 exports.restrictTo = (...roles) => {
   // roles ['admin' ,'lead-guide]
   return (req, res, next) => {
-    console.log(req.user.role)
+    
     // If the user is not included in the array
     if (!roles.includes(req.user.role)) {
       return next(

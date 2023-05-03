@@ -8,16 +8,17 @@ const router = express.Router();
 // /api/v1/users/students/studnet/login
 // /api/v1/users/students/studnet/signUp
 
-router.route('/login/:entity').post(authController.login);
-router.route('/signup/:entity').post(authController.signup);
+router.route('/login').post(authController.login);
+router.route('/signup').post(authController.signup);
 
 
 router
-  .route('/:entity')
+  .route('/')
   .get(
     authController.protect,
     authController.restrictTo('student', 'staff', 'admin'),
     studentController.getAllStudents
+
   )
   .post(
     authController.protect,
@@ -26,7 +27,7 @@ router
   );
 
 router
-  .route('/:entity/:id')
+  .route('/:id')
   .get(
     authController.protect,
     authController.restrictTo('staff', 'admin'),

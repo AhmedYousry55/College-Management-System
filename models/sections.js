@@ -15,6 +15,15 @@ const sectionsSchema = new mongoose.Schema({
     type:Number,
     required:[true ,  ' A section must have a limit'],
   },
+  students:[{
+    type: mongoose.Schema.ObjectId,
+    ref:'Student',
+   }],
+   
+   staff:[{
+    type:mongoose.Schema.ObjectId,
+    ref:'Staff',
+  }],
 
   lab: {
     type: String,
