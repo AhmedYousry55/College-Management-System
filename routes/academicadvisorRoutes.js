@@ -4,7 +4,6 @@
 // const academicAdvisor = require('./../controllers/academicAdvisor');
 // const { route } = require('./resourcesRoutes');
 
-
 // router.route('/academicadvisor').get(academicAdvisor.suggestions);
 
 // module.exports = router;

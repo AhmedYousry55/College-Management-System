@@ -19,9 +19,9 @@ mongoose
     console.log('Database Connected successfully');
   });
 
-const port = 5002;
+const port = 5003;
 
-app.listen( process.env.PORT || 5002 , () => {
+app.listen( process.env.PORT || 5003 , () => {
   console.log(`app is running on port ${port}`);
 });
 

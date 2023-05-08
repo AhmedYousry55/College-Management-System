@@ -13,7 +13,7 @@ const coursesSchema = new mongoose.Schema({
 
   prerequisites: [
     {
-      type: mongoose.Schema.Types.ObjectId,
+      type: mongoose.Schema.ObjectId,
       ref: 'Course',
     },
   ],
