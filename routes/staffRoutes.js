@@ -3,12 +3,12 @@ const staffController = require('./../controllers/staffController');
 const authController = require('./../controllers/authController');
 const router = express.Router();
 
-router.route('/login').post(authController.login);
+router.route('/:entity/login').post(authController.login);
 
-router.route('/signup').post(authController.signup);
+router.route('/:entity/signup').post(authController.signup);
 
 router
-  .route('/')
+  .route('/:entity')
   .get(
     authController.protect,
     authController.restrictTo('student', 'staff', 'admin'),
@@ -20,7 +20,7 @@ router
     staffController.createStaff
   );
 router
-  .route('/:id')
+  .route('/:entity/:id')
   .get(
     authController.protect,
     authController.restrictTo('staff', 'admin'),

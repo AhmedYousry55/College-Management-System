@@ -4,11 +4,11 @@ const authController = require('../controllers/authController');
 const router = express.Router();
 
 router
-  .route('/')
+  .route('/:entity/')
   .get(authController.protect,authController.restrictTo('student','staff','admin'),lectureController.getAllLectures)
   .post(authController.protect,authController.restrictTo('staff','admin'),lectureController.createLecture);
 router
-  .route('/:id')
+  .route('/:entity/:id')
   .get(authController.protect,authController.restrictTo('student','staff','admin'),lectureController.getOneLecture)
   .patch(authController.protect,authController.restrictTo('staff','admin'),lectureController.updateLecture)
   .delete(authController.protect,authController.restrictTo('staff','admin'),lectureController.deleteLecture);

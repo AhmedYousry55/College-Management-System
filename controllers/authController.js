@@ -25,7 +25,7 @@ const createAndSendToken = (user, statusCode, res) => {
 
 // recentely added 
 exports.signup = catchAsync(async (req, res, next) => {
-  const entityType = req.body.entity; // assuming you pass the entity type as a parameter in the URL
+  const entityType = req.params.entity; // assuming you pass the entity type as a parameter in the URL
   let newUser;
 
   if (entityType === 'student') {
@@ -70,7 +70,7 @@ exports.signup = catchAsync(async (req, res, next) => {
 
 exports.login = catchAsync(async (req, res, next) => {
   const { email, password } = req.body;
-  const entityType = req.body.entity; // assuming you pass the entity type as a parameter in the URL
+  const entityType = req.params.entity; // assuming you pass the entity type as a parameter in the URL
 
   //1) check if the user missed his email or password,400 for a bad request
   if (!email || !password) {
@@ -124,7 +124,7 @@ exports.login = catchAsync(async (req, res, next) => {
 exports.protect = catchAsync(async (req, res, next) => {
   //1) getting the token and check if it's there
   let token;
-  const entityType = req.body.entity;
+  const entityType = req.params.entity;
   
   
   if (

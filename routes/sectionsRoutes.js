@@ -9,7 +9,7 @@ router
   .get(authController.protect,authController.restrictTo('student','staff','admin'),sectionController.getAllSections)
   .post(authController.protect,authController.restrictTo('staff','admin'),sectionController.CreateSection);
 router
-  .route('/:id')
+  .route('/:entity/:id')
   .get(authController.protect,authController.restrictTo('student','staff','admin'),sectionController.getOneSection)
   .patch(authController.protect,authController.restrictTo('staff','admin'),sectionController.updateSection)
   .delete(authController.protect,authController.restrictTo('staff','admin'),sectionController.deleteSection);

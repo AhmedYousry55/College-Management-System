@@ -8,13 +8,13 @@ const router = express.Router();
 // /api/v1/users/students/studnet/login
 // /api/v1/users/students/studnet/signUp
 
-router.route('/login').post(authController.login);
-router.route('/signup').post(authController.signup);
+router.route('/:entity/login').post(authController.login);
+router.route('/:entity/signup').post(authController.signup);
 
-router.route('/top10students').get( studentController.aliasTopStudents,studentController.getAllStudents);
+router.route('/:entity/top10students').get( studentController.aliasTopStudents,studentController.getAllStudents);
 
 router
-  .route('/')
+  .route('/:entity')
   .get(
     authController.protect,
     authController.restrictTo('student', 'staff', 'admin'),
@@ -28,7 +28,7 @@ router
   );
 
 router
-  .route('/:id')
+  .route('/:entity/:id')
   .get(
     authController.protect,
     authController.restrictTo('staff', 'admin'),

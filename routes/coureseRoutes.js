@@ -5,16 +5,16 @@ const authController = require('./../controllers/authController');
 
 
 router
-  .route('/')
+  .route('/:entity/')
   .get(authController.protect,authController.restrictTo('student','staff','admin'),courseController.getAllCourses)
   .post(authController.protect,authController.restrictTo('staff','admin'),courseController.createCourse);
 router
-  .route('/:id')
+  .route('/:entity/:id')
   .get(authController.protect,authController.restrictTo('student','staff','admin'),courseController.getOneCourse)
   .patch(authController.protect,authController.restrictTo('staff','admin'),courseController.updateCourse)
   .delete(authController.protect,authController.restrictTo('staff','admin'),courseController.deleteCourse);
   router
-  .route('/:id/register')
+  .route('/:entity/:id/register')
   .get(authController.protect ,authController.restrictTo('student','staff','admin'), courseController.getOneCourse)
   .post(authController.protect,authController.restrictTo('student','admin'),courseController.registerCourse);
 

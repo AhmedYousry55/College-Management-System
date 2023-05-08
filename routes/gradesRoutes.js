@@ -9,7 +9,7 @@ router
   .get(authController.protect,authController.restrictTo('student','staff','admin'),gradesController.getAllGrades)
   .post(authController.protect,authController.restrictTo('staff','admin'),gradesController.createGrades);
 router
-  .route('/:id')
+  .route('/:entity/:id')
   .get(authController.protect,authController.restrictTo('student','staff','admin'),gradesController.getOneGrade)
   .patch(authController.protect,authController.restrictTo('staff','admin'),gradesController.updateGrades)
   .delete(authController.protect,authController.restrictTo('staff','admin'),gradesController.deleteGrades);
