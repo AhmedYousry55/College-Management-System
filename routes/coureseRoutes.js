@@ -5,7 +5,7 @@ const authController = require('./../controllers/authController');
 
 
 router
-  .route('/:entity/')
+  .route('/:entity')
   .get(authController.protect,authController.restrictTo('student','staff','admin'),courseController.getAllCourses)
   .post(authController.protect,authController.restrictTo('staff','admin'),courseController.createCourse);
 router

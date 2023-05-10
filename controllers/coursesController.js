@@ -61,6 +61,17 @@ exports.registerCourse = catchAsync(async (req, res, next) => {
     return next(new AppError('student not found'));
   }
 
+  if (failedCourse) {
+    const suggestedCourse = await Course.findOne({
+      prerequisites: failedCourse,
+    });
+    if (suggestedCourse) {
+      return res.status(400).json({
+        status: 'fail',
+        message: `You have failed the ${failedCourse} prerequisite. We suggest you enroll in ${suggestedCourse.title}.`,
+      });
+    }
+  }
   // Check if the student is already registered for the course
   if (student.courses.includes(courseId)) {
     return next(new AppError('You already registered for this course'));
@@ -88,17 +99,6 @@ exports.registerCourse = catchAsync(async (req, res, next) => {
     const failedCourse = course.prerequisites.find(
       (prerequisite) => !finishedCourses.includes(prerequisite)
     );
-    if (failedCourse) {
-      const suggestedCourse = await Course.findOne({
-        prerequisites: failedCourse,
-      });
-      if (suggestedCourse) {
-        return res.status(400).json({
-          status: 'fail',
-          message: `You have failed the ${failedCourse} prerequisite. We suggest you enroll in ${suggestedCourse.title}.`,
-        });
-      }
-    }
 
     // If the student is missing other prerequisites, return an error message
     return next(

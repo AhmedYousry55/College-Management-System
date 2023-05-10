@@ -15,6 +15,7 @@ const scheduleRoutes = require('./routes/scheduleRoutes.js');
 const sectionsRoutes = require('./routes/sectionsRoutes.js');
 const staffRoutes = require('./routes/staffRoutes.js');
 const studentRoutes = require('./routes/studentRoutes.js');
+const assignmentsRouter = require('./routes/assignmentsRoutes.js');
 const userRoutes = require('./routes/userRoutes.js');
 // MIDDLEWARES
 app.use((req, res, next) => {
@@ -36,7 +37,6 @@ app.use(express.static(`${__dirname}/public`));
 // });
 
 
-
 // Routes
 // app.use('/api/v1/coursepre', coursesPreqs);
 // app.use('/api/v1/degreepreq', degreePreqsRoutes);
@@ -50,7 +50,7 @@ app.use('/api/v1/Dashboard', dashboardRoutes);
 app.use('/api/v1/grades', gradesRoutes);
 app.use('/api/v1/lectures', lecturesRoutes);
 
-
+app.use('/Assignments',assignmentsRouter);
 app.use('/api/v1/users', userRoutes);
 
 // app.use('/api/v1/staffs', staffRoutes);
@@ -72,6 +72,7 @@ admin
 
 // recenctely added 
 //
+app.use(globalErrorHandler);
 
 
 
