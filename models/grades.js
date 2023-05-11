@@ -26,21 +26,26 @@ const gradesSchema = mongoose.Schema({
     required: [true, 'cgpa is missed'],
   },
 
-  course:[{
-    type:mongoose.Schema.ObjectId,
-    ref:'Course',
-  }],
+  course: [
+    {
+      type: mongoose.Schema.ObjectId,
+      ref: 'Course',
+    },
+  ],
 
-  students:[{
-    type:mongoose.Schema.ObjectId,
-    ref:'Student',
-  }]
+  students: [
+    {
+      type: mongoose.Schema.ObjectId,
+      ref: 'Student',
+    },
+  ],
 });
 
-gradesSchema.pre(/^find/,function(next){
-  this.populate({path:'students'}).populate({path:'course'});
+gradesSchema.pre(/^find/, function (next) {
+  this.populate({ path: 'students' })
+  .populate({ path: 'course' })
   next();
-})
+});
 
 const Grade = mongoose.model('Grade', gradesSchema);
 

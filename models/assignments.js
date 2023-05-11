@@ -5,11 +5,11 @@ const assignmentSchema = new mongoose.Schema({
         type: String,
         required: true
       },
-      course: {
+      course: [{
         type: mongoose.Schema.ObjectId,
         ref: 'Course',
         required: true
-      },
+      }],
       description: {
         type: String,
         required: true
@@ -31,6 +31,11 @@ const assignmentSchema = new mongoose.Schema({
     {timestamps: true },
     
     );
+
+    assignmentSchema.pre(/^find/,function(next){
+      this.populate({path:'course'});
+      next();
+    });
 
 
 const Assignment = new mongoose.model('Assignment', assignmentSchema);

@@ -35,7 +35,8 @@ const warningsSchema = new mongoose.Schema({
 });
 
 warningsSchema.pre(/^find/, function (next) {
-  this.populate({ path: 'student' }).populate({ path: 'course' });
+  this.populate({ path: 'student' })
+  .populate({ path: 'course' })
   next();
 });
 

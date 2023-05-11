@@ -5,34 +5,7 @@ const APIFeatures = require('../utils/apiFeatures');
 const AppError = require('../utils/appError');
 const catchAsync = require('./../utils/catchAsync');
 
-/*
-  modification
-  student{
 
-    + gpa{
-       > 3 =>   you can take up to 20 c.hs.
-       > 2 =>   you can take up to 12 c.hs.
-    }
-
-    + totalRegisterdHour  => l7ad dlw2tii anta 5lst ad ehh 
-    + registerdHours (registerdHours <= limitCredit ) 
-    + limitCredit : {
-      function set (){
-         if(this.gpa >= 3 )  this.limitCredit = 20  
-         else if(this.gpa  <= 2)  this.limitCredit = 12  
-         else{
-           this.limitCredit = 17
-         } 
-      }
-    }
-
-  } 
-
-  register : 
-    if(){
-      cerditHour += course.credit  
-    }
-*/
 
 //1)Course handler factory
 exports.getAllCourses = factory.getAll(Course);
@@ -61,6 +34,41 @@ exports.registerCourse = catchAsync(async (req, res, next) => {
     return next(new AppError('student not found'));
   }
 
+  // Check if the student is already registered for the course
+  if (student.courses.includes(courseId)) {
+    return next(new AppError('You already registered for this course'));
+  }
+  
+  // Check if the course has reached its maximum enrollment
+  if (course.maxEnrollments <= course.students.length) {
+    return next(new AppError('Course has reached maximum enrollments'));
+  }
+  ////////////////////
+  const prerequisites = course.prerequisites;
+  const finishedCourses = student.finishedCourses;
+  
+  const hasPrerequisites = prerequisites.every((prerequisite) =>
+  finishedCourses.includes(prerequisite)
+  );
+  
+  if (!hasPrerequisites) {
+    // Get the prerequisites that the student has not completed
+    const missingPrerequisites = prerequisites.filter(
+      (prerequisite) => !finishedCourses.includes(prerequisite)
+      );
+    // If the student is missing other prerequisites, return an error message
+    return next(
+      new AppError(
+        `You have not completed the following prerequisites: ${missingPrerequisites.join(
+          ', '
+        )}`
+      )
+    );
+  }
+  // If the student has failed a course, suggest a new course to enroll in
+  const failedCourse = course.prerequisites.find(
+    (prerequisite) => !finishedCourses.includes(prerequisite)
+  );
   if (failedCourse) {
     const suggestedCourse = await Course.findOne({
       prerequisites: failedCourse,
@@ -71,43 +79,6 @@ exports.registerCourse = catchAsync(async (req, res, next) => {
         message: `You have failed the ${failedCourse} prerequisite. We suggest you enroll in ${suggestedCourse.title}.`,
       });
     }
-  }
-  // Check if the student is already registered for the course
-  if (student.courses.includes(courseId)) {
-    return next(new AppError('You already registered for this course'));
-  }
-
-  // Check if the course has reached its maximum enrollment
-  if (course.maxEnrollments <= course.students.length) {
-    return next(new AppError('Course has reached maximum enrollments'));
-  }
-  ////////////////////
-  const prerequisites = course.prerequisites;
-  const finishedCourses = student.finishedCourses;
-
-  const hasPrerequisites = prerequisites.every((prerequisite) =>
-    finishedCourses.includes(prerequisite)
-  );
-
-  if (!hasPrerequisites) {
-    // Get the prerequisites that the student has not completed
-    const missingPrerequisites = prerequisites.filter(
-      (prerequisite) => !finishedCourses.includes(prerequisite)
-    );
-
-    // If the student has failed a course, suggest a new course to enroll in
-    const failedCourse = course.prerequisites.find(
-      (prerequisite) => !finishedCourses.includes(prerequisite)
-    );
-
-    // If the student is missing other prerequisites, return an error message
-    return next(
-      new AppError(
-        `You have not completed the following prerequisites: ${missingPrerequisites.join(
-          ', '
-        )}`
-      )
-    );
   }
   const creditHours = course.creditHours;
 
@@ -138,7 +109,30 @@ exports.registerCourse = catchAsync(async (req, res, next) => {
     status: 'success',
     message: 'Registered Successfully',
   });
+  next();
 });
+
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // }))
 /*
 async (req, res, next) => {

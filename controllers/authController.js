@@ -59,12 +59,14 @@ exports.signup = catchAsync(async (req, res, next) => {
  const filteredUser = Object.assign( {} , {
   name: newUser.name,
   email: newUser.email,
+  
   // add more fields here as needed
 });
 
 
 
   createAndSendToken(filteredUser, 201, res)
+  next();
 });
 
 
@@ -117,6 +119,7 @@ exports.login = catchAsync(async (req, res, next) => {
     status: 'success',
     token,
   });
+  next();
 });
 
 //

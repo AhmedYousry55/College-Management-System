@@ -15,7 +15,6 @@ router
   .delete(authController.protect,authController.restrictTo('staff','admin'),courseController.deleteCourse);
   router
   .route('/:entity/:id/register')
-  .get(authController.protect ,authController.restrictTo('student','staff','admin'), courseController.getOneCourse)
   .post(authController.protect,authController.restrictTo('student','admin'),courseController.registerCourse);
 
   module.exports = router;

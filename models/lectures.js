@@ -34,7 +34,8 @@ const lectureSchema = new mongoose.Schema({
 });
 
 lectureSchema.pre(/^find/, function (next) {
-  this.populate({ path: 'students' }).populate({ path: 'Doctor' });
+  this.populate({ path: 'students' })
+  .populate({ path: 'Doctor' })
   next();
 });
 

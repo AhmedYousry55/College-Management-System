@@ -68,3 +68,4 @@ exports.registerSection = async (req, res) => {
     }
   };
   
+  

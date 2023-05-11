@@ -64,5 +64,7 @@ exports.registerLecture = async (req, res) => {
         status: 'error',
         message: 'An error occurred while enrolling in lecture',
       });
+      
     }
   };
+  

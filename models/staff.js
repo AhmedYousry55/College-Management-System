@@ -65,7 +65,7 @@ const staffSchema = new mongoose.Schema({
 staffSchema.pre(/^find/, function (next) {
   this.populate({ path: 'course' })
     .populate({ path: 'lectures' })
-    .populate({ path: 'section' });
+    .populate({ path: 'section' })
   next();
 });
 

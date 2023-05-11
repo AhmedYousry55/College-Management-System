@@ -26,6 +26,7 @@ const AdviserSchema = new mongoose.Schema({
 
 AdviserSchema.pre(/^find/, function (next) {
   this.populate({ path: 'students' });
+  next();
 });
 
 const Adviser = new mongoose.model('Adviser', AdviserSchema);

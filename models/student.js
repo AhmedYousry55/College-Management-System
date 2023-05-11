@@ -129,14 +129,13 @@ studentSchema.pre('save', async function (next) {
   next();
 });
 
-studentSchema.pre(/^find/, function (next) {
+studentSchema.pre(/^find/, function(next) {
   this.populate({ path: 'courses', select: 'name -prerequisites' })
     .populate({ path: 'lectures', select: 'name Doctor' })
     .populate({ path: 'Sections', select: 'name Teacher' })
     .populate({path:'grades'})
     .populate({path:'adviser', select:'name email'})
-    .populate({path:'attendance'});
-
+    .populate({path:'attendance'})
   next();
 });
 

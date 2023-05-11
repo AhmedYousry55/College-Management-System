@@ -14,7 +14,7 @@ router
   .patch(authController.protect,authController.restrictTo('staff','admin'),sectionController.updateSection)
   .delete(authController.protect,authController.restrictTo('staff','admin'),sectionController.deleteSection);
 
-  router.route('/:id/Enroll').post(authController.protect,authController.restrictTo('student','staff','admin'),sectionController.registerSection);
+  router.route('/:entity/:id/Enroll').post(authController.protect,authController.restrictTo('student','staff','admin'),sectionController.registerSection);
 
 
   module.exports = router;

@@ -13,7 +13,7 @@ router
   .patch(authController.protect,authController.restrictTo('staff','admin'),lectureController.updateLecture)
   .delete(authController.protect,authController.restrictTo('staff','admin'),lectureController.deleteLecture);
 
-  router.route('/:id/Enroll').post(authController.protect,authController.restrictTo('student','staff','admin'),lectureController.registerLecture);
+  router.route('/:entity/:id/Enroll/').post(authController.protect,authController.restrictTo('student','staff','admin'),lectureController.registerLecture);
 
 
   module.exports = router;

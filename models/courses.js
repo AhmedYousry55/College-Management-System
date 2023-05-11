@@ -19,7 +19,7 @@ const coursesSchema = new mongoose.Schema(
       },
     ],
 
-    credits: {
+    creditHours: {
       type: Number,
       required: true,
     },
@@ -56,8 +56,9 @@ const coursesSchema = new mongoose.Schema(
 //   localField: '_id',
 // });
 
-coursesSchema.pre(/^find/, function (next) {
-  this.populate({ path: 'prerequisites' }).populate({ path: 'students' });
+coursesSchema.pre(/^find/, function(next) {
+  this.populate({ path: 'prerequisites' })
+  // .populate({ path: 'students' })
   next();
 });
 

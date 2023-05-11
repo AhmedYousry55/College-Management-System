@@ -36,11 +36,11 @@ const attendanceSchema = new mongoose.Schema({
   },
 });
 
-attendanceSchema.pre(/^find/, function (next) {
+attendanceSchema.pre(/^find/,function(next) {
   this.populate({ path: 'students' })
     .populate({ path: 'course' })
     .populate({ path: 'section' })
-    .populate({ path: 'lecture' });
+    .populate({ path: 'lecture' })
     next();
 });
 
