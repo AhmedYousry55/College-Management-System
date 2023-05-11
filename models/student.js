@@ -33,13 +33,12 @@ const studentSchema = new mongoose.Schema({
     },
   },
 
-  courses: 
-    [{
+  courses: [
+    {
       type: mongoose.Schema.ObjectId,
       ref: 'Course',
     },
   ],
-  
 
   lectures: [
     {
@@ -61,11 +60,10 @@ const studentSchema = new mongoose.Schema({
       ref: 'Grade',
     },
   ],
-  advisers:
-    {
-      type: mongoose.Schema.ObjectId,
-      ref: 'Adviser',
-    },
+  adviser: {
+    type: mongoose.Schema.ObjectId,
+    ref: 'Adviser',
+  },
 
   attendance: [
     {
@@ -78,7 +76,6 @@ const studentSchema = new mongoose.Schema({
     default: 0,
     min: 0,
     max: 4.0,
-    
   },
 
   totalRegisteredHours: {
@@ -99,13 +96,15 @@ const studentSchema = new mongoose.Schema({
     min: 0,
     max: 30,
   },
-  finishedCourses : [{
-    type: mongoose.Schema.ObjectId,
-    ref: 'Course',
-  }]
+  finishedCourses: [
+    {
+      type: mongoose.Schema.ObjectId,
+      ref: 'Course',
+    },
+  ],
 });
 
-studentSchema.pre('save', function(next) {
+studentSchema.pre('save', function (next) {
   if (this.gpa >= 3) {
     this.limitCredit = 20;
   } else if (this.gpa <= 2) {
@@ -115,8 +114,6 @@ studentSchema.pre('save', function(next) {
   }
   next();
 });
-
-
 
 studentSchema.pre('save', async function (next) {
   //this function runs only when the password is changed
@@ -133,7 +130,13 @@ studentSchema.pre('save', async function (next) {
 });
 
 studentSchema.pre(/^find/, function (next) {
-  this.populate({ path: 'courses', select: 'name -prerequisites' });
+  this.populate({ path: 'courses', select: 'name -prerequisites' })
+    .populate({ path: 'lectures', select: 'name Doctor' })
+    .populate({ path: 'Sections', select: 'name Teacher' })
+    .populate({path:'grades'})
+    .populate({path:'adviser', select:'name email'})
+    .populate({path:'attendance'});
+
   next();
 });
 

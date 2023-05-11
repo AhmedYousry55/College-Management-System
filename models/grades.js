@@ -1,21 +1,6 @@
 const mongoose = require('mongoose');
 
 const gradesSchema = mongoose.Schema({
-  student_id: {
-    type: Number,
-    required: [true, 'id is missing!'],
-    unique: true,
-  },
-  student_name: {
-    type: String,
-    required: [true, 'grades must include the studet name'],
-  },
-
-  course_id: {
-    type: String,
-    required: [true, 'course_id is missing'],
-  },
-
   course_name: String,
 
   final: {
@@ -41,11 +26,21 @@ const gradesSchema = mongoose.Schema({
     required: [true, 'cgpa is missed'],
   },
 
+  course:[{
+    type:mongoose.Schema.ObjectId,
+    ref:'Course',
+  }],
+
   students:[{
     type:mongoose.Schema.ObjectId,
     ref:'Student',
   }]
 });
+
+gradesSchema.pre(/^find/,function(next){
+  this.populate({path:'students'}).populate({path:'course'});
+  next();
+})
 
 const Grade = mongoose.model('Grade', gradesSchema);
 

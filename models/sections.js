@@ -1,12 +1,5 @@
 const mongoose = require('mongoose');
 const sectionsSchema = new mongoose.Schema({
-  
-  section_id: {
-    type: Number,
-    unique: true,
-    required: [true, 'section must have an id'],
-  },
-
   name: {
     type: String,
     required: [true, 'lab must have a name'],
@@ -14,13 +7,15 @@ const sectionsSchema = new mongoose.Schema({
   maxGroupSize :{
     type:Number,
     required:[true ,  ' A section must have a limit'],
+    min:20,
+    max:35,
   },
   students:[{
     type: mongoose.Schema.ObjectId,
     ref:'Student',
    }],
    
-   staff:[{
+   Teacher:[{
     type:mongoose.Schema.ObjectId,
     ref:'Staff',
   }],
@@ -30,8 +25,12 @@ const sectionsSchema = new mongoose.Schema({
     required: [true, 'lab musyt have a name'],
   },
 
-  time: String,
+  time: Date,
 });
+
+sectionsSchema.pre(/^find/,function(next){
+  this.populate({path:'students'}).populate({path:'staff'})
+})
 
 const Section = new mongoose.model('Section', sectionsSchema);
 

@@ -1,31 +1,47 @@
 const mongoose = require('mongoose');
 
 const attendanceSchema = new mongoose.Schema({
-    attendance_id:{
-        type: Number,
-        unique:true,
+  students: [
+    {
+      type: mongoose.Schema.ObjectId,
+      ref: 'Student',
+    },
+  ],
+  course: [
+    {
+      type: mongoose.Schema.ObjectId,
+      ref: 'Course',
+    },
+  ],
 
+  section: [
+    {
+      type: mongoose.Schema.ObjectId,
+      ref: 'Section',
     },
-    student_id:{
-        type:Number,
-        required:[true, 'attendance must have  astudent id'],
-        unique:true,
+  ],
+  lecture: [
+    {
+      type: mongoose.Schema.ObjectId,
+      ref: 'Lecture',
     },
-    course_id:{
-        type:Number,
-        unique:true,
-        required:[true, 'attendance must have a course id'],
-    },
+  ],
+  isPresent: {
+    type: Boolean,
+    default: false,
+  },
+  date: {
+    type: Date,
+    default: Date.now(),
+  },
+});
 
-    section_id:{
-        type:Number,
-        requird:[true, 'section must have an id'],
-        unique:true,
-    },
-    date:{  
-        type:Date,
-        default:Date.now(),
-    },
+attendanceSchema.pre(/^find/, function (next) {
+  this.populate({ path: 'students' })
+    .populate({ path: 'course' })
+    .populate({ path: 'section' })
+    .populate({ path: 'lecture' });
+    next();
 });
 
 const Attendance = mongoose.model('Attendance', attendanceSchema);

@@ -1,46 +1,43 @@
 const mongoose = require('mongoose');
 
 const lectureSchema = new mongoose.Schema({
-  
-  // lecture_id: {
-  //   type: Number,
-  //   unique: true,
-  //   required: [true, 'section must have an id'],
-  // },
-
   name: {
     type: String,
     required: [true, 'lab must have a name'],
   },
-  maxGroupSize :{
-    type:Number,
-    required:[true ,  ' A lecture must have a limit'],
-    select:false,
-    min:30,
-    max:60,
-  },
-  professor:{
-    type:String,
-    require:[true,'lecture must include a professor name'],
+  maxGroupSize: {
+    type: Number,
+    required: [true, ' A lecture must have a limit'],
+    select: false,
+    min: 30,
+    max: 60,
   },
   hall: {
     type: String,
     required: [true, 'lecture must include the hall'],
   },
-  students:[{
-    type:mongoose.Schema.ObjectId,
-    ref:'Student',
-  }],
-  
-  staff:[{
-    type:mongoose.Schema.ObjectId,
-    ref:'Staff',
-  }],
-  
- time: String,
- 
+  students: [
+    {
+      type: mongoose.Schema.ObjectId,
+      ref: 'Student',
+    },
+  ],
+
+  Doctor: [
+    {
+      type: mongoose.Schema.ObjectId,
+      ref: 'Staff',
+    },
+  ],
+
+  time: String,
 });
 
-const Lecture = mongoose.model('Lecture',lectureSchema);
+lectureSchema.pre(/^find/, function (next) {
+  this.populate({ path: 'students' }).populate({ path: 'Doctor' });
+  next();
+});
+
+const Lecture = mongoose.model('Lecture', lectureSchema);
 
 module.exports = Lecture;
