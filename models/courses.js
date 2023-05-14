@@ -56,8 +56,8 @@ const coursesSchema = new mongoose.Schema(
 //   localField: '_id',
 // });
 
-coursesSchema.pre(/^find/, function(next) {
-  this.populate({ path: 'prerequisites' })
+coursesSchema.pre(/^find/, function (next) {
+  this.populate({ path: 'prerequisites' });
   // .populate({ path: 'students' })
   next();
 });

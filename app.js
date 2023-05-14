@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const cors = require('cors');
 const morgan = require('morgan');
 const globalErrorHandler = require('./controllers/errorController.js');
 const acadmicadvisorRoutes = require('./routes/academicadvisorRoutes.js');
@@ -18,6 +19,7 @@ const studentRoutes = require('./routes/studentRoutes.js');
 const assignmentsRouter = require('./routes/assignmentsRoutes.js');
 const userRoutes = require('./routes/userRoutes.js');
 // MIDDLEWARES
+app.use(cors());
 app.use((req, res, next) => {
   req.requestTime = new Date().toISOString();
   next();

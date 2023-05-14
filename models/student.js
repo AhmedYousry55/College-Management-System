@@ -71,12 +71,12 @@ const studentSchema = new mongoose.Schema({
       ref: 'Attendance',
     },
   ],
-  gpa: {
-    type: Number,
-    default: 0,
-    min: 0,
-    max: 4.0,
-  },
+  // gpa: {
+  //   type: Number,
+  //   default: 0,
+  //   min: 0,
+  //   max: 4.0,
+  // },
 
   totalRegisteredHours: {
     type: Number,
