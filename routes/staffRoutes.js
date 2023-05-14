@@ -3,9 +3,9 @@ const staffController = require('./../controllers/staffController');
 const authController = require('./../controllers/authController');
 const router = express.Router();
 
-router.route('/:entity/login').post(authController.login);
+router.route('/login').post(authController.login);
 
-router.route('/:entity/signup').post(authController.signup);
+router.route('/signup').post(authController.signup);
 
 router
   .route('/:entity')
