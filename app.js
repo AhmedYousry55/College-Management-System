@@ -24,7 +24,7 @@ app.use((req, res, next) => {
   req.requestTime = new Date().toISOString();
   next();
 });
-console.log(process.env);
+// console.log(process.env);
 
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
