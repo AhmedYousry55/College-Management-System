@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const morgan = require('morgan');
+const compression = require('compression');
 const globalErrorHandler = require('./controllers/errorController.js');
 const acadmicadvisorRoutes = require('./routes/academicadvisorRoutes.js');
 const adviserRoutes = require('./routes/adviserRoutes.js');
@@ -34,46 +35,30 @@ app.use(express.json());
 
 app.use(express.static(`${__dirname}/public`));
 
-// app.use((req, res, next) => {
-//   console.log('hello from the middle ware...');
-//   next();
-// });
+app.use(compression());
+
 
 
 // Routes
-// app.use('/api/v1/coursepre', coursesPreqs);
-// app.use('/api/v1/degreepreq', degreePreqsRoutes);
-// app.use('/api/v1/schedules',scheduleRoutes );
-// app.use('/E-ACADEMICADVISOR', acadmicadvisorRoutes);
-
 app.use('/api/v1/sections',sectionsRoutes );
 app.use('/api/v1/attendance', AttendanceRoutes);
 app.use('/api/v1/courses', coursesRoutes);
 app.use('/api/v1/Dashboard', dashboardRoutes);
 app.use('/api/v1/grades', gradesRoutes);
 app.use('/api/v1/lectures', lecturesRoutes);
-
 app.use('/Assignments',assignmentsRouter);
 app.use('/api/v1/users', userRoutes);
+app.use('/api/v1/advisers', adviserRoutes);
 
-// app.use('/api/v1/staffs', staffRoutes);
-
+// app.use('/api/v1/coursepre', coursesPreqs);
+// app.use('/api/v1/degreepreq', degreePreqsRoutes);
+// app.use('/api/v1/schedules',scheduleRoutes );
+// app.use('/E-ACADEMICADVISOR', acadmicadvisorRoutes);
 // app.use('/api/v1/students', studentRoutes);
-// app.use('/api/v1/advisers', adviserRoutes);
-
-/*
-type of user :  
-student 
-staff (professor (advise []) )
-admin 
-
-*/
-
-// recenctely added 
+// app.use('/api/v1/staffs', staffRoutes);
 // app.use('/api/v1/student-profile', studentProfileRoutes);
 
 
-// recenctely added 
 
 app.use(globalErrorHandler);
 

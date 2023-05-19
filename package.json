@@ -6,15 +6,15 @@
   "scripts": {
     "seed": "node dev-data/import-data.js --import",
     "delete": "node dev-data/import-data.js --delete",
-    "start:dev": "set NODE_ENV=development&& nodemon server.js",
-    "start:prod": "set NODE_ENV=production&& nodemon server.js",
-    "start": "node server.js"
+    "start": "nodemon server.js",
+    "start:prod": "set NODE_ENV=production&& nodemon server.js"
   },
   "author": "ahmed",
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.2",
+    "compression": "^1.7.4",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "crypto": "^1.0.1",

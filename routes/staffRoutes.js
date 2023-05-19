@@ -8,7 +8,7 @@ router.route('/login').post(authController.login);
 router.route('/signup').post(authController.signup);
 
 router
-  .route('/:entity')
+  .route('/')
   .get(
     authController.protect,
     authController.restrictTo('student', 'staff', 'admin'),
@@ -20,7 +20,7 @@ router
     staffController.createStaff
   );
 router
-  .route('/:entity/:id')
+  .route('/:id')
   .get(
     authController.protect,
     authController.restrictTo('staff', 'admin'),
