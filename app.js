@@ -27,7 +27,7 @@ app.use((req, res, next) => {
 });
 // console.log(process.env);
 
-  app.use(morgan('combined'));
+  app.use(morgan('dev'));
 
 
 app.use(express.json());
