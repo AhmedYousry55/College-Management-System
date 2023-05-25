@@ -87,4 +87,4 @@ exports.getAll = (Model) =>
          documents,
       },
     });
-  });g
+  });
