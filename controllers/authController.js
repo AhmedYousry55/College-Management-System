@@ -72,7 +72,8 @@ exports.signup = catchAsync(async (req, res, next) => {
 
 exports.login = catchAsync(async (req, res, next) => {
   const { email, password } = req.body;
-  const entityType = req.headers.entity; // assuming you pass the entity type as a parameter in the URL
+  const entityType = req.headers.entity; 
+  console.log(email,password);
 
   //1) check if the user missed his email or password,400 for a bad request
   if (!email || !password) {
@@ -82,10 +83,8 @@ exports.login = catchAsync(async (req, res, next) => {
   //2) check if the user exists and password is correct
 
   let user;
-
   if (entityType === 'student') {
     user = await Student.findOne({ email }).select('+password');
-    
   } 
   else if (entityType === 'staff') {
     user = await Staff.findOne({ email }).select('+password');

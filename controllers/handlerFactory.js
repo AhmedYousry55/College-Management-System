@@ -77,14 +77,14 @@ exports.getAll = (Model) =>
       .limitFields()
       .paginate();
     // const doc = await features.query.explain();
-    const doc = await features.query;
+    const documents = await features.query;
 
     // SEND RESPONSE
     res.status(200).json({
       status: 'success',
-      results: doc.length,
+      results: documents.length,
       data: {
-        data: doc,
+         documents,
       },
     });
-  });
+  });g

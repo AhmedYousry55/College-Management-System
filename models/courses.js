@@ -41,6 +41,8 @@ const coursesSchema = new mongoose.Schema(
     maxEnrollments: {
       type: Number,
       required: [true, 'missing field'],
+      min:20,
+      max:300,
     },
   },
 

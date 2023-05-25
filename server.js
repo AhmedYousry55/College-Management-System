@@ -25,4 +25,3 @@ app.listen( process.env.PORT || 5003 , () => {
   console.log(`app is running on port ${port}`);
 });
 
-module.exports = app ;
