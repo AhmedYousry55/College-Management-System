@@ -31,7 +31,7 @@ router
   .route('/:id')
   .get(
     authController.protect,
-    authController.restrictTo('staff', 'admin'),
+    authController.restrictTo('student','staff', 'admin'),
     studentController.getOneStudent
   )
   .patch(
