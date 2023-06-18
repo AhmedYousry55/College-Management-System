@@ -107,6 +107,8 @@ exports.registerLecture = async (req, res) => {
     const qrCodeText = JSON.stringify(qrCodeData);
     console.log(qrCodeText);
     const qrCode = await QRCode.toDataURL(qrCodeText);
+    console.log('/////////////////////////////');
+    console.log(qrCodeText);
 
     // Return the QR code image and expiration time as a response
     res.status(200).json({
