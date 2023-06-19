@@ -14,6 +14,8 @@ exports.getOneCourse = factory.getOne(Course, { path: 'students' });
 exports.updateCourse = factory.updateOne(Course);
 exports.deleteCourse = factory.deleteOne(Course);
 
+
+
 exports.registerCourse = catchAsync(async (req, res, next) => {
   // Get the ID of the course to register for from the request parameters
   const courseId = req.params.id;
@@ -109,14 +111,11 @@ exports.registerCourse = catchAsync(async (req, res, next) => {
     status: 'success',
     message: 'Registered Successfully',
   });
-  next();
 });
 
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////
-
-
 
 
 
