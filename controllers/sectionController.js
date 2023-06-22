@@ -40,7 +40,7 @@ exports.registerSection = async (req, res) => {
       if (section.students.length >= section.maxGroupSize) {
         return res.status(400).json({
           status: 'fail',
-          message: 'Section is full',
+          message: 'Section is at maximum capacity',
         });
       }
   

@@ -94,15 +94,15 @@ exports.registerLecture = async (req, res) => {
     const expirationTime = new Date(Date.now() + 15 * 60 * 1000);
 
     const qrCodeData = {
+      doctor : lecture.doctor,
       lectureId: lecture._id,
-      timestamp: Date.now(),
-      expirationTime
+      timestamp: Math.floor (Date.now()-start / 1000),
+       expirationTime 
     };
 
     const qrCodeText = JSON.stringify(qrCodeData);
     console.log(qrCodeText);
     const qrCode = await QRCode.toDataURL(qrCodeText);
-    console.log('/////////////////////////////');
     console.log(qrCodeText);
 
     res.status(200).json({
