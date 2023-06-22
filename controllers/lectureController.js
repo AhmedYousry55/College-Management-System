@@ -96,7 +96,7 @@ exports.registerLecture = async (req, res) => {
     const qrCodeData = {
       doctor : lecture.doctor,
       lectureId: lecture._id,
-      timestamp: Math.floor (Date.now()-start / 1000),
+      timestamp: Math.floor (Date.now()/ 1000),
        expirationTime 
     };
 
