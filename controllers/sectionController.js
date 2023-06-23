@@ -27,7 +27,6 @@ exports.registerSection = async (req, res) => {
           message: 'Section not found',
         });
       }
-  
       // Check if the student is already enrolled in the section
       if (section.students.includes(req.user.id)) {
         return res.status(400).json({
@@ -35,7 +34,6 @@ exports.registerSection = async (req, res) => {
           message: 'Student is already enrolled in this section',
         });
       }
-  
       // Check if the section is full
       if (section.students.length >= section.maxGroupSize) {
         return res.status(400).json({
@@ -43,7 +41,6 @@ exports.registerSection = async (req, res) => {
           message: 'Section is at maximum capacity',
         });
       }
-  
       // Enroll the student in the section
       section.students.push(req.user.id);
       await section.save();

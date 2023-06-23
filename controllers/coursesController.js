@@ -27,7 +27,6 @@ exports.registerCourse = catchAsync(async (req, res, next) => {
   if (!course) {
     return next(new AppError('Course Not found!'));
   }
-
   // Find the student by its ID
   const student = await Student.findById(req.user._id);
 
@@ -35,17 +34,15 @@ exports.registerCourse = catchAsync(async (req, res, next) => {
   if (!student) {
     return next(new AppError('student not found'));
   }
-
   // Check if the student is already registered for the course
   if (student.courses.includes(courseId)) {
     return next(new AppError('You already registered for this course'));
   }
-  
   // Check if the course has reached its maximum enrollment
   if (course.maxEnrollments <= course.students.length) {
     return next(new AppError('Course has reached maximum enrollments'));
   }
-  ////////////////////
+
   const prerequisites = course.prerequisites;
   const finishedCourses = student.finishedCourses;
   
@@ -92,12 +89,6 @@ exports.registerCourse = catchAsync(async (req, res, next) => {
   // Update the student's registeredHours and totalRegisteredHours fields
   student.registeredHours += creditHours;
 
-  // ystna lma yng7
-
-  // student.totalRegisteredHours += creditHours;
-
-  ////////////
-
   // Add the course to the student's list of courses
   student.courses.push(courseId);
   await student.save({ validateBeforeSave: false });
@@ -112,7 +103,6 @@ exports.registerCourse = catchAsync(async (req, res, next) => {
     message: 'Registered Successfully',
   });
 });
-
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////
