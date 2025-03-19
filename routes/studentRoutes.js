@@ -13,19 +13,14 @@ router.route('/signup').post(authController.signup);
 
 router.route('/top10students').get( studentController.aliasTopStudents,studentController.getAllStudents);
 
-router
-  .route('/')
-  .get(
+router .route('/')  .get(
     authController.protect,
     authController.restrictTo('student', 'staff', 'admin'),
-    studentController.getAllStudents
-
-  )
-  .post(
+    studentController.getAllStudents )
+ .post(
     authController.protect,
     authController.restrictTo('staff', 'admin'),
-    studentController.createStudent
-  );
+    studentController.createStudent );
 
 router
   .route('/:id')

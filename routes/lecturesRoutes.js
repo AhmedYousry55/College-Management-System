@@ -13,9 +13,9 @@ router
   .patch(authController.protect,authController.restrictTo('staff','admin'),lectureController.updateLecture)
   .delete(authController.protect,authController.restrictTo('staff','admin'),lectureController.deleteLecture);
 
-  router.route('/:id/Enroll/').post(authController.protect,authController.restrictTo('student','staff','admin'),lectureController.registerLecture);
   router.route('/:id/qrcode').get(lectureController.generateQRCode);
-
+  
   router.route('/:id/verifyattendance').get(authController.protect,lectureController.verifyAttendance);
-
+  
   module.exports = router;
+  router.route('/:id/Enroll/').post(authController.protect,authController.restrictTo('student','staff','admin'),lectureController.registerLecture);

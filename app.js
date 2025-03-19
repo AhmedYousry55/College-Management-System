@@ -7,6 +7,7 @@ const acadmicadvisorRoutes = require('./routes/academicadvisorRoutes.js');
 const adviserRoutes = require('./routes/adviserRoutes.js');
 const AttendanceRoutes = require('./routes/attendanceRoutes.js');
 const coursesRoutes = require('./routes/coureseRoutes.js');
+// const studentRoutes = require('./routes/studentRoutes.js');
 // const coursesPreqs = require('./routes/coursesPreqsRoutes.js');
 const dashboardRoutes = require('./routes/dashboardRoutes.js');
 const gradesRoutes = require('./routes/gradesRoutes.js');
@@ -50,7 +51,7 @@ app.use('/api/v1/grades', gradesRoutes);
 app.use('/api/v1/lectures', lecturesRoutes);
 app.use('/Assignments',assignmentsRouter);
 app.use('/api/v1/advisers', adviserRoutes);
-
+app.use('/api/v1/students', studentRoutes);
 // app.use('/api/v1/coursepre', coursesPreqs);
 // app.use('/api/v1/degreepreq', degreePreqsRoutes);
 // app.use('/api/v1/schedules',scheduleRoutes );

@@ -26,6 +26,18 @@ const lectureSchema = new mongoose.Schema({
     ref: 'Staff',
     required: [true, 'Lecture must have a doctor'],
   },
+
+  time: {
+    startTime: {
+      type: Date,
+      required: true,
+    },
+    endTime: {
+      type: Date,
+      required: true,
+    },
+  },
+
   location: {
     type: {
       type: String,
@@ -34,16 +46,6 @@ const lectureSchema = new mongoose.Schema({
     },
     coordinates: {
       type: [Number],
-      required: true,
-    },
-  },
-  time: {
-    startTime: {
-      type: Date,
-      required: true,
-    },
-    endTime: {
-      type: Date,
       required: true,
     },
   },

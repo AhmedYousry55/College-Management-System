@@ -11,9 +11,23 @@ exports.aliasTopStudents = (req, res, next) => {
   req.query.fields = 'name,email,gpa';
   next();
 };
+// exports.aliasTopStudents = (req,res,next) => {
+//   req.
+// }
 
-exports.getAllStudents = factory.getAll(Student);
+
+
+
+// exports.getAllStudents = factory.getAll(Student);
+// exports.createStudent = factory.createOne(Student);
+// exports.getOneStudent = factory.getOne(Student)
+// exports.updateStudent = factory.updateOne(Student)
+// exports.deleteStudent = factory.deleteOne(Student);
+
+
+
+exports.getAllStuednts = factory.getAll(Student);
+exports.updateStudents = factory.updateOne(Student)
 exports.createStudent = factory.createOne(Student);
+exports.deleteStudents = factory.deleteOne(Student);
 exports.getOneStudent = factory.getOne(Student);
-exports.updateStudent = factory.updateOne(Student);
-exports.deleteStudent = factory.deleteOne(Student);

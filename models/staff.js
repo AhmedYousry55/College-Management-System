@@ -17,7 +17,6 @@ const staffSchema = new mongoose.Schema({
   office_hours: {
     type: String,
   },
-  // recenctely added
   contact_num: Number,
   gender: String,
   password: {
@@ -34,7 +33,7 @@ const staffSchema = new mongoose.Schema({
     type: String,
     required: [true, 'please provide your password'],
     validate: {
-      //this inly works on create and save , if we update the password this function will no longer work.
+      //this only works on create and save , if we update the password this function will no longer work.
       validator: function (el) {
         return el === this.password;
       },

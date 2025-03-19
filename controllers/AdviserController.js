@@ -1,5 +1,4 @@
 const Adviser = require('../models/Adviser');
-
 const catchAsync = require('../utils/catchAsync');
 const APIFeatures = require('../utils/apiFeatures');
 const AppError = require('../utils/appError');
